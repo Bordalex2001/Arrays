@@ -8,38 +8,21 @@ namespace Homework
         static void Main()
         {
             Console.Write("Enter a text: ");
-            StringBuilder sent = new StringBuilder(Console.ReadLine());
-
-            string lower = "abcdefghijklmnopqrstuvwxyz";
-            string upper = lower.ToUpper();
-            for (int i = 0; i < sent.Length; i++)
+            string input = Console.ReadLine();
+            StringBuilder text = new StringBuilder();
+            text.Append(input[0].ToString().ToUpper());
+            for (int i = 1; i < input.Length; i++)
             {
-                if (i == 0)
+                if (char.IsLetter(input[i]) && char.IsWhiteSpace(input[i - 1]) && ".!?".IndexOf(input[i - 2]) != -1)
                 {
-                    for (int j = 0; j < lower.Length; j++)
-                    {
-                        if (sent[i] == lower[j])
-                        {
-                            sent[i] = upper[j];
-                        }
-                    }
+                    text.Append(input[i].ToString().ToUpper());
                 }
-                else if (sent[i] == '.')
+                else
                 {
-                    for (int j = 0; j < lower.Length; j++)
-                    {
-                        if (sent[i + 2] == lower[j])
-                        {
-                            sent[i + 2] = upper[j];
-                        }
-                        else
-                        {
-                            sent[i] = '\0';
-                        }
-                    }
+                    text.Append(input[i]);
                 }
             }
-            Console.WriteLine("\nResult: " + sent);
+            Console.WriteLine("\nResult: " + text);
         }
     }
 }

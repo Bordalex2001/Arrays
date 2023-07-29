@@ -4,28 +4,65 @@ namespace Homework
 {
     class Task5
     {
-        /*static void Main()
+        static void Main()
         {
-            Console.Write("Enter an equation: ");
-            string[] eq = Console.ReadLine().Split(' ');
-            int res = -1;
-            for(int i = 0; i < eq; i++)
+            Console.Write("Enter an expression: ");
+            string input = Console.ReadLine();
+            int result = Calculate(input);
+            Console.WriteLine("Result: " + result);
+        }
+        static int Calculate(string expression)
+        {
+            int result = 0;
+            int number = 0;
+            char signOfOperation = '+';
+            bool operationIsSupported = false;
+            for (int i = 0; i < expression.Length; i++)
             {
-                res = 
+                char symb = expression[i];
+                if (char.IsDigit(symb))
+                {
+                    number = number * 10 + (symb - '0');
+                }
+                else if (symb == '+' || symb == '-')
+                {
+                    if (operationIsSupported)
+                    {
+                        result = ExecuteOperation(result, number, signOfOperation);
+                    }
+                    else
+                    {
+                        result = number;
+                    }
+                    number = 0;
+                    signOfOperation = symb;
+                    operationIsSupported = true;
+                }
             }
-            switch (eq[1])
+            if (operationIsSupported)
             {
-                case "+":
-                    res = Int32.Parse(eq[0]) + Int32.Parse(eq[2]);
-                    break;
-                case "-":
-                    res = Int32.Parse(eq[0]) - Int32.Parse(eq[2]);
-                    break;
-                default:
-                    Console.WriteLine("Something went wrong.");
-                    break;
+                result = ExecuteOperation(result, number, signOfOperation);
             }
-            Console.WriteLine("Result: " + res);
-        }*/
+            else
+            {
+                result = number;
+            }
+            return result;
+        }
+        static int ExecuteOperation(int left_operand, int right_operand, char operator_sign)
+        {
+            if (operator_sign == '+')
+            {
+                return left_operand + right_operand;
+            }
+            else if (operator_sign == '-')
+            {
+                return left_operand - right_operand;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
